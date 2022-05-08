@@ -1,0 +1,1 @@
+web: guvicorn main:server

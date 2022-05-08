@@ -17,4 +17,4 @@
     $ heroku git:remote -a plotly-dash-adrian
     $ git add .
     $ git commit -am "initial launch"
-    $ git push heroku master
+    $ git push heroku main

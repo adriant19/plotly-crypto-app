@@ -1,1 +1,1 @@
-web: guvicorn main.py:server
+web: gunicorn main.py:server

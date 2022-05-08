@@ -64,34 +64,36 @@ app.layout = html.Div([
 )
 def update_chart(currency_selected, timeframe_selected, num_coins):
 
-    df = scraper.load_data(currency_selected).sort_values(
+    df = scraper.load_data(currency_selected)[
+        ["name", "symbol", "price", "1h%", "24h%", "7d%"]
+    ].sort_values(
         by=[timeframe_selected],
         ascending=False
-    )
+    )[:num_coins]
 
-    df_filtered = df[["name", "symbol", "price", "1h%", "24h%", "7d%"]][:num_coins].copy()
-    df_filtered.index = np.arange(1, len(df_filtered) + 1)
+    df.index = np.arange(1, len(df) + 1)
 
-    df_filtered["color"] = np.where(
-        df_filtered[timeframe_selected] >= np.where(timeframe_selected == "price", df_filtered[timeframe_selected].mean(), 0),
+    df["color"] = np.where(
+        df[timeframe_selected] >= np.where(timeframe_selected == "price", df[timeframe_selected].mean(), 0),
         "green",
         "red"
     )
 
     # horizontal bar chart
+    # issue: points were reversed instead of using yaxis={"categoryorder": "total ascending"}
+    # this is because the sorting somehow includes unfiltered yticks when using 24h% or 7d%
 
     fig = go.Figure(
         go.Bar(
-            x=df_filtered[timeframe_selected],
-            y=df_filtered["symbol"],
-            marker_color=df_filtered["color"],
+            x=df[timeframe_selected][::-1],
+            y=df["symbol"][::-1],
+            marker_color=df["color"][::-1],
             orientation="h"
         ),
         layout=go.Layout(
             title="Bar Plot of % Price Changes",
             font_family="Helvetica",
             xaxis={"tickformat": ",.0f" if timeframe_selected == "price" else ",.0%"},
-            yaxis={"categoryorder": "total ascending"},
             width=500,
             height=600,
             hovermode="y unified"
@@ -104,13 +106,13 @@ def update_chart(currency_selected, timeframe_selected, num_coins):
         go.Table(
             columnwidth=[150, 400],
             header=dict(
-                values=["#"] + [f"<b>{c.upper()}</b>" for c in df_filtered.columns],
+                values=["#"] + [f"<b>{c.upper()}</b>" for c in df.columns[:-1]],
                 font=dict(size=15), align="left",
                 fill_color="paleturquoise", line_color="darkslategray",
                 height=40
             ),
             cells=dict(
-                values=[df_filtered.index.tolist()] + [df_filtered[k].tolist() for k in df_filtered.columns],
+                values=[df.index.tolist()] + [df[k].tolist() for k in df.columns[:-1]],
                 font=dict(size=13), align="right",
                 fill_color="lavender", line_color="darkslategray",
                 format=["", "", "", ",.2f", ",.0%", ",.0%", ",.0%"],

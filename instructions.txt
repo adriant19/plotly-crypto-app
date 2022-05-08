@@ -8,7 +8,7 @@
 
 # setup packages in requirements list
 
-    $ pip freeze > requirements.txt
+    $ pip3 freeze > requirements.txt
 
 # push files to heroku
 

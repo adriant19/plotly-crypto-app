@@ -14,7 +14,7 @@
 
     $ heroku login
     $ git init
-    $ heroku git:remote -a plotly-dash-adrian
+    $ heroku git:remote -a plotly-dash-adriant19
     $ git add .
     $ git commit -am "initial launch"
     $ git push heroku main

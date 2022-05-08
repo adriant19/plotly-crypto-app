@@ -1,0 +1,20 @@
+# prepare packages
+
+    pip3 install package-name
+
+# create Procfile
+
+    $ web: gunicorn main.py:server
+
+# setup packages in requirements list
+
+    $ pip freeze > requirements.txt
+
+# push files to heroku
+
+    $ heroku login
+    $ git init
+    $ heroku git:remote -a AppNameFromStep2
+    $ git add .
+    $ git commit -am &quot;initial launch&quot;
+    $ git push heroku master

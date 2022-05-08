@@ -1,1 +1,1 @@
-web: guvicorn main:server
+web: guvicorn main.py:server

@@ -5,7 +5,7 @@
 
 <br>
 
-<span style="color:blue">#### DESCRIPTION</span>
+#### DESCRIPTION
 ----------------
 
 This app was deployed on Heroku as a cloud hosting platform to showcase an interactive dashboard that was developed using Python.
@@ -22,3 +22,11 @@ The application was developed using plotly for data visualisation with dash comp
 Some challenges that were faced when dealing with dash could serve as an opportunity to improve, namely:
 
 - Variety of coins that were scraped, to be included as a multi-select filter to provide users with the ability to filter out specific coins to be viewed/compared.
+
+```diff
+- text in red
++ text in green
+! text in orange
+# text in gray
+@@ text in purple (and bold)@@
+```

@@ -5,7 +5,7 @@
 
 <br>
 
-#### DESCRIPTION
+#### <span style="color:blue">DESCRIPTION</span>
 ----------------
 
 This app was deployed on Heroku as a cloud hosting platform to showcase an interactive dashboard that was developed using Python.

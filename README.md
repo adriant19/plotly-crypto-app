@@ -3,6 +3,8 @@
 
 **Deployed on Heroku at**: [Heroku Crypto Price App](https://plotly-dash-adriant19.herokuapp.com/)
 
+<br>
+
 #### DESCRIPTION
 ----------------
 

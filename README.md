@@ -19,6 +19,4 @@ The application was developed using plotly for data visualisation with dash comp
 #### IMPROVEMENTS
 -----------------
 
-Some challenges that were faced when dealing with dash could serve as an opportunity to improve, namely:
-
 - Variety of coins that were scraped, to be included as a multi-select filter to provide users with the ability to filter out specific coins to be viewed/compared.

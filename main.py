@@ -5,6 +5,9 @@ import numpy as np
 from app import app, server
 import scraper
 
+# ------------------------------------------------------------------------------
+# setup layout
+
 app.layout = html.Div([
 
     html.Div(  # webapp title
@@ -58,6 +61,9 @@ app.layout = html.Div([
 ])
 
 
+# ------------------------------------------------------------------------------
+# callback function for interactive
+
 @ app.callback(
     Output("bar-chart", "figure"), Output("table-chart", "figure"),
     Input("currency-selected", "value"), Input("timeframe-selected", "value"), Input("range-slider", "value")
@@ -73,7 +79,7 @@ def update_chart(currency_selected, timeframe_selected, num_coins):
 
     df.index = np.arange(1, len(df) + 1)
 
-    df["color"] = np.where(
+    df["color"] = np.where(  # for price, color against avg
         df[timeframe_selected] >= np.where(timeframe_selected == "price", df[timeframe_selected].mean(), 0),
         "green",
         "red"
@@ -88,14 +94,20 @@ def update_chart(currency_selected, timeframe_selected, num_coins):
             x=df[timeframe_selected][::-1],
             y=df["symbol"][::-1],
             marker_color=df["color"][::-1],
+            customdata=df[["price", "1h%", "24h%", "7d%"]][::-1],
+            hovertemplate="<br>".join([
+                "<extra><b>price</b>: %{customdata[0]:,.2f}",
+                "<b>1h%</b>: %{customdata[0]:,.0%}",
+                "<b>24h%</b>: %{customdata[1]:,.0%}",
+                "<b>7d%</b>: %{customdata[2]:,.0%}</extra>",
+            ]),
             orientation="h"
         ),
         layout=go.Layout(
             title="Bar Plot of % Price Changes",
             font_family="Helvetica",
             xaxis={"tickformat": ",.0f" if timeframe_selected == "price" else ",.0%"},
-            width=500,
-            height=600,
+            width=500, height=600,
             hovermode="y unified"
         )
     )

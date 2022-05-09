@@ -12,6 +12,8 @@ The application scrapes the [Coin Market Cap](https://coinmarketcap.com/) websit
 
 The application was developed using plotly for data visualisation with dash components to enable users to make changes to the graph objects.
 
+<br>
+
 #### IMPROVEMENTS
 -----------------
 

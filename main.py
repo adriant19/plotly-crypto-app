@@ -11,50 +11,83 @@ import scraper
 app.layout = html.Div([
 
     html.Div(  # webapp title
+        style={"marginLeft": 20, "marginBottom": 30},
         children=[
-            html.H4("Crypto Price App", style={"font-family": "Helvetica", "fontSize": 30, "marginBottom": 10}),
-            html.Hr(style=dict(marginBottom=30)),
-        ],
-        style=dict(align="center")
+            html.H4("CRYPTO PRICE APP", style={"font-family": "Helvetica", "fontSize": 30, "marginBottom": 10}),
+            html.Hr(),
+        ]
     ),
 
     html.Div(  # filters
-        className="row",
-        style=dict(display="flex", align="center"),  # split side by side
+        style={
+            "marginLeft": 20,
+            "width": 1400,
+            "display": "grid",
+            "grid-template-columns": "20% 20% 40%",
+        },
         children=[
-            dcc.Dropdown(
-                id="currency-selected",
-                options=[{"label": x, "value": x} for x in ["USD", "BTC", "ETH"]],
-                value="USD", clearable=False,
-                style={"width": 700}
-            ),
-            dcc.Dropdown(
-                id="timeframe-selected",
-                options=[{"label": x.title() if x == "price" else x, "value": x} for x in ["1h%", "24h%", "7d%", "price"]],
-                value="1h%", clearable=False,
-                style={"width": 700}
-            )
+            html.Label("Price currency", style={"font-weight": "bold", "marginRight": 10}),
+            html.Label("Timeframe sorting", style={"font-weight": "bold", "marginRight": 10}),
+            html.Label("Number of Coins", style={"font-weight": "bold"}),
         ]
     ),
 
     html.Div(  # secondary filter
-        className="filter-row",
+        style={
+            "marginLeft": 20,
+            "marginTop": 10,
+            "width": 1400,
+            "display": "grid",
+            "grid-template-columns": "20% 20% 40%",
+        },
         children=[
+            dcc.Dropdown(
+                id="currency-selected",
+                style={"marginRight": 20},
+                options=[{"label": x, "value": x} for x in ["USD", "BTC", "ETH"]],
+                value="USD",
+                clearable=False,
+            ),
+            dcc.Dropdown(
+                id="timeframe-selected",
+                style={"marginRight": 20},
+                options=[{"label": x.title() if x == "price" else x, "value": x} for x in ["1h%", "24h%", "7d%", "price"]],
+                value="1h%",
+                clearable=False
+            ),
             dcc.Slider(
                 id="range-slider",
                 min=0, max=100, value=50,
-                tooltip={"placement": "bottom", "always_visible": True},
+                tooltip={"placement": "bottom", "always_visible": True}
             )
-        ],
-        style=dict(width=1400, marginTop=20)
+        ]
     ),
 
     html.Div(  # charts
-        className="chart-row",
-        style=dict(display="flex"),
+        style={
+            "marginLeft": 20,
+            "width": 1400,
+            "display": "flex"
+        },
         children=[
             dcc.Graph(id="bar-chart", figure={}),
             dcc.Graph(id="table-chart", figure={})
+        ]
+    ),
+
+    html.Div(  # webapp title
+        style={"marginLeft": 20, "align": "center"},
+        children=[
+            html.Hr(),
+            html.Footer(
+                "* by Adrian T.",
+                style={
+                    "marginLeft": 20,
+                    "fontSize": 13,
+                    "color": "gray",
+                    "font-style": "italic"
+                }
+            )
         ]
     )
 
@@ -64,7 +97,7 @@ app.layout = html.Div([
 # ------------------------------------------------------------------------------
 # callback function for interactive
 
-@ app.callback(
+@app.callback(
     Output("bar-chart", "figure"), Output("table-chart", "figure"),
     Input("currency-selected", "value"), Input("timeframe-selected", "value"), Input("range-slider", "value")
 )

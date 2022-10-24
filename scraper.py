@@ -13,7 +13,7 @@ def load_data(currency):
     data = soup.find('script', id='__NEXT_DATA__', type='application/json')
 
     coin_data = json.loads(data.contents[0])
-    listings = coin_data['props']['initialState']['cryptocurrency']['listingLatest']['data']
+    listings = json.loads(coin_data['props']['initialState'])['cryptocurrency']['listingLatest']['data']
 
     cols = listings[0]["keysArr"]
     rows = [r for r in listings[1:]]

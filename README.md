@@ -1,7 +1,7 @@
 # Plotly Crypto App
 
 
-**Deployed on Heroku at**: *[Heroku Crypto Price App](https://plotly-dash-adriant19.herokuapp.com/)*
+**Deployed on Heroku at**: **Unfortunately the free version of Heroku is no longer available**
 
 <br>
 
